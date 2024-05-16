@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player 2 Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <h1>Player 2 Pieces</h1>
+    <div id="counter">Remaining units: 100%</div>
+    <div id="game-pieces-container"></div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="player1.html">Player 1</a></li>
+        </ul>
+    </nav>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const headerText = 'Player 2 Pieces';
+            const gamePieces = [
+                'Piece 1',
+                'Piece 2',
+                'Piece 3',
+                'Piece 4',
+                'Piece 5'
+            ];
+
+            document.querySelector('h1').textContent = headerText;
+
+            const container = document.getElementById('game-pieces-container');
+            gamePieces.forEach(piece => {
+                const div = document.createElement('div');
+                div.className = 'game-piece';
+                div.onclick = toggleRemoved;
+                div.textContent = piece;
+                container.appendChild(div);
+            });
+            updateCounter();
+        });
+    </script>
+</body>
+</html>
