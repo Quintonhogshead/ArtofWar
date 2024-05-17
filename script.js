@@ -9,3 +9,13 @@ function updateCounter() {
     const remainingPercentage = ((totalPieces - removedPieces) / totalPieces * 100).toFixed(2);
     document.getElementById('counter').textContent = `Remaining units: ${remainingPercentage}%`;
 }
+
+function editText(event) {
+    event.preventDefault();
+    const currentText = event.target.textContent;
+    const newText = prompt("Edit text:", currentText);
+    if (newText !== null && newText.trim() !== "") {
+        event.target.textContent = newText;
+        updateCounter();
+    }
+}
