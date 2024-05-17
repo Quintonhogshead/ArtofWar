@@ -1,87 +1,44 @@
-function toggleRemoved(event) {
-    event.target.classList.toggle('removed');
-    const storageKey = window.location.pathname.includes('player1') ? 'player1' : 'player2';
-    saveGameState(storageKey);
-    updateCounter();
-}
-
-function updateCounter() {
-    const totalPieces = document.querySelectorAll('.game-piece').length;
-    const removedPieces = document.querySelectorAll('.game-piece.removed').length;
-    const remainingPercentage = ((totalPieces - removedPieces) / totalPieces * 100).toFixed(2);
-    document.getElementById('counter').textContent = `Remaining units: ${remainingPercentage}%`;
-}
-
-function editText(event) {
-    event.preventDefault();
-    const currentText = event.target.textContent;
-    const newText = prompt("Edit text:", currentText);
-    if (newText !== null && newText.trim() !== "") {
-        event.target.textContent = newText;
-        const storageKey = window.location.pathname.includes('player1') ? 'player1' : 'player2';
-        saveGameState(storageKey);
-        updateCounter();
-    }
-}
-
-function addGamePiece(storageKey) {
+function enableDragAndDrop() {
     const container = document.getElementById('game-pieces-container');
-    const div = document.createElement('div');
-    div.className = 'game-piece';
-    div.textContent = 'New Piece';
-    div.onclick = toggleRemoved;
-    div.oncontextmenu = editText;
-    container.appendChild(div);
-    updateCounter();
-    saveGameState(storageKey);
-}
-
-function removeGamePiece(storageKey) {
-    const container = document.getElementById('game-pieces-container');
-    if (container.lastChild) {
-        container.removeChild(container.lastChild);
-        updateCounter();
-        saveGameState(storageKey);
-    }
-}
-
-function saveGameState(storageKey) {
-    const gamePieces = Array.from(document.querySelectorAll('.game-piece')).map(piece => ({
-        text: piece.textContent,
-        removed: piece.classList.contains('removed')
-    }));
-    const headerText = document.querySelector('h1').textContent;
-    const counterText = document.getElementById('counter').textContent;
-    const state = {
-        gamePieces: gamePieces,
-        headerText: headerText,
-        counterText: counterText
-    };
-    localStorage.setItem(storageKey, JSON.stringify(state));
-}
-
-function loadGameState(storageKey) {
-    const savedState = localStorage.getItem(storageKey);
-    if (savedState) {
-        const state = JSON.parse(savedState);
-        document.querySelector('h1').textContent = state.headerText;
-        document.getElementById('counter').textContent = state.counterText;
-
-        const container = document.getElementById('game-pieces-container');
-        container.innerHTML = '';
-        state.gamePieces.forEach(piece => {
-            const div = document.createElement('div');
-            div.className = 'game-piece';
-            div.textContent = piece.text;
-            if (piece.removed) {
-                div.classList.add('removed');
-            }
-            div.onclick = toggleRemoved;
-            div.oncontextmenu = editText;
-            container.appendChild(div);
+    const draggables = document.querySelectorAll('.game-piece');
+    
+    draggables.forEach(draggable => {
+        draggable.setAttribute('draggable', true);
+        
+        draggable.addEventListener('dragstart', () => {
+            draggable.classList.add('dragging');
         });
-        updateCounter();
-    }
+        
+        draggable.addEventListener('dragend', () => {
+            draggable.classList.remove('dragging');
+            saveGameState(window.location.pathname.includes('player1') ? 'player1' : 'player2');
+        });
+    });
+    
+    container.addEventListener('dragover', e => {
+        e.preventDefault();
+        const afterElement = getDragAfterElement(container, e.clientY);
+        const dragging = document.querySelector('.dragging');
+        if (afterElement == null) {
+            container.appendChild(dragging);
+        } else {
+            container.insertBefore(dragging, afterElement);
+        }
+    });
+}
+
+function getDragAfterElement(container, y) {
+    const draggableElements = [...container.querySelectorAll('.game-piece:not(.dragging)')];
+    
+    return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+        } else {
+            return closest;
+        }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -105,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('game-pieces-container');
         initialGamePieces.forEach(piece => {
             const div = document.createElement('div');
-            div.className = 'game-piece';
+            div.className = 'game-piece draggable';
             div.textContent = piece;
             div.onclick = toggleRemoved;
             div.oncontextmenu = editText;
@@ -114,4 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCounter();
         saveGameState(storageKey);
     }
+
+    enableDragAndDrop();
 });
