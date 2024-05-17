@@ -8,18 +8,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let totalPieces = pieces.length;
     let activePieces = totalPieces;
 
+    function updateCounter() {
+        activePieces = document.querySelectorAll('.game-piece:not(.struck)').length;
+        const percentage = (activePieces / totalPieces) * 100;
+        counter.textContent = `${percentage.toFixed(0)}% remaining`;
+    }
+
     pieces.forEach(piece => {
         piece.addEventListener('click', () => {
             piece.classList.toggle('struck');
             updateCounter();
         });
     });
-
-    function updateCounter() {
-        activePieces = document.querySelectorAll('.game-piece:not(.struck)').length;
-        const percentage = (activePieces / totalPieces) * 100;
-        counter.textContent = `${percentage.toFixed(0)}% remaining`;
-    }
 
     addPieceButton.addEventListener('click', () => {
         const newPiece = document.createElement('div');
@@ -47,4 +47,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial counter update
     updateCounter();
 });
+
 
