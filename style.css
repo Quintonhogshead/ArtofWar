@@ -88,3 +88,7 @@ button {
 button:hover {
     background-color: #1447b2;
 }
+.draggable {
+    user-select: none;
+    -webkit-user-drag: element;
+}
