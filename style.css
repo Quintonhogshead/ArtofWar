@@ -1,75 +1,66 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Special+Elite&display=swap');
-
 body {
-    font-family: 'Orbitron', sans-serif;
-    background-color: #1c1f26;
-    color: #e7bc25;
-    text-align: center;
-    padding: 50px;
-}
-
-h1 {
-    color: #e7bc25;
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #333;
-    border-radius: 5px;
-    display: inline-block;
-}
-
-#counter {
-    color: #e7bc25;
-    margin-bottom: 30px;
-    font-size: 18px;
-    font-family: 'Special Elite', serif;
-    padding: 10px;
-    background-color: #333;
-    border-radius: 5px;
-    display: inline-block;
-}
-
-.game-piece {
-    margin: 5px 0;
-    padding: 15px;
-    font-size: 20px;
-    cursor: pointer;
-    transition: color 0.3s, background-color 0.3s;
-    background-color: #1a5fe4;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    color: #fff;
-}
-
-.game-piece:hover {
-    background-color: #1447b2;
-}
-
-.removed {
-    color: #7f7f7f;
-    text-decoration: line-through;
-    text-decoration-color: #ff0000; /* Blood red color */
-    background-color: #1c1f26;
-}
-
-nav ul {
-    list-style: none;
+    font-family: 'Arial', sans-serif;
+    background-color: #001f3f;
+    color: #f1c40f;
+    margin: 0;
     padding: 0;
 }
 
-nav li {
-    display: inline;
-    margin: 0 10px;
+.nav, .container {
+    text-align: center;
+    padding: 20px;
 }
 
-nav a {
-    color: #e7bc25;
+.nav a {
+    color: #f1c40f;
     text-decoration: none;
-    padding: 10px;
-    background-color: #333;
-    border-radius: 5px;
+    margin: 0 10px;
+    font-size: 1.5em;
 }
 
-nav a:hover {
+.nav a:hover {
     text-decoration: underline;
 }
+
+.container h1, .container p {
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+.game-pieces {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-piece {
+    background-color: #f1f1f1;
+    color: #001f3f;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px;
+    width: 200px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.game-piece.struck {
+    background-color: #666;
+    color: crimson;
+    text-decoration: line-through;
+}
+
+button {
+    background-color: #f1c40f;
+    color: #001f3f;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e1b20e;
+}
+
