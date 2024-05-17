@@ -24,27 +24,6 @@ function editText(event) {
     }
 }
 
-function addGamePiece(storageKey) {
-    const container = document.getElementById('game-pieces-container');
-    const div = document.createElement('div');
-    div.className = 'game-piece';
-    div.textContent = 'New Piece';
-    div.onclick = toggleRemoved;
-    div.oncontextmenu = editText;
-    container.appendChild(div);
-    updateCounter();
-    saveGameState(storageKey);
-}
-
-function removeGamePiece(storageKey) {
-    const container = document.getElementById('game-pieces-container');
-    if (container.lastChild) {
-        container.removeChild(container.lastChild);
-        updateCounter();
-        saveGameState(storageKey);
-    }
-}
-
 function saveGameState(storageKey) {
     const gamePieces = Array.from(document.querySelectorAll('.game-piece')).map(piece => ({
         text: piece.textContent,
@@ -109,5 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
             div.textContent = piece;
             div.onclick = toggleRemoved;
             div.oncontextmenu = editText;
-            container.append
+            container.appendChild(div);
+        });
+        updateCounter();
+        saveGameState(storageKey);
+    }
+});
 
