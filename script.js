@@ -1,6 +1,7 @@
 function toggleRemoved(event) {
     event.target.classList.toggle('removed');
-    saveGameState();
+    const storageKey = window.location.pathname.includes('player1') ? 'player1' : 'player2';
+    saveGameState(storageKey);
     updateCounter();
 }
 
@@ -17,12 +18,34 @@ function editText(event) {
     const newText = prompt("Edit text:", currentText);
     if (newText !== null && newText.trim() !== "") {
         event.target.textContent = newText;
-        saveGameState();
+        const storageKey = window.location.pathname.includes('player1') ? 'player1' : 'player2';
+        saveGameState(storageKey);
         updateCounter();
     }
 }
 
-function saveGameState() {
+function addGamePiece(storageKey) {
+    const container = document.getElementById('game-pieces-container');
+    const div = document.createElement('div');
+    div.className = 'game-piece';
+    div.textContent = 'New Piece';
+    div.onclick = toggleRemoved;
+    div.oncontextmenu = editText;
+    container.appendChild(div);
+    updateCounter();
+    saveGameState(storageKey);
+}
+
+function removeGamePiece(storageKey) {
+    const container = document.getElementById('game-pieces-container');
+    if (container.lastChild) {
+        container.removeChild(container.lastChild);
+        updateCounter();
+        saveGameState(storageKey);
+    }
+}
+
+function saveGameState(storageKey) {
     const gamePieces = Array.from(document.querySelectorAll('.game-piece')).map(piece => ({
         text: piece.textContent,
         removed: piece.classList.contains('removed')
@@ -34,11 +57,11 @@ function saveGameState() {
         headerText: headerText,
         counterText: counterText
     };
-    localStorage.setItem(window.location.pathname, JSON.stringify(state));
+    localStorage.setItem(storageKey, JSON.stringify(state));
 }
 
-function loadGameState() {
-    const savedState = localStorage.getItem(window.location.pathname);
+function loadGameState(storageKey) {
+    const savedState = localStorage.getItem(storageKey);
     if (savedState) {
         const state = JSON.parse(savedState);
         document.querySelector('h1').textContent = state.headerText;
@@ -62,15 +85,15 @@ function loadGameState() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadGameState();
+    const storageKey = window.location.pathname.includes('player1') ? 'player1' : 'player2';
+    loadGameState(storageKey);
 
     // Make header and counter editable
     document.querySelector('h1').oncontextmenu = editText;
     document.getElementById('counter').oncontextmenu = editText;
 
     // Initialize game pieces if there's no saved state
-    const savedState = localStorage.getItem(window.location.pathname);
-    if (!savedState) {
+    if (!localStorage.getItem(storageKey)) {
         const initialGamePieces = [
             'Piece 1',
             'Piece 2',
@@ -89,6 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
             container.appendChild(div);
         });
         updateCounter();
-        saveGameState();
+        saveGameState(storageKey);
     }
 });
