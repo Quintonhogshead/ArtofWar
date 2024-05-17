@@ -3,32 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Player 2 Tracker</title>
-    <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
+    <title>Player Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
 </head>
 <body>
-    <h1 id="header">Player 2 Pieces</h1>
-    <div id="counter">Remaining units: 100%</div>
-    <div id="game-pieces-container"></div>
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="player1.html">Player 1</a></li>
-        </ul>
-    </nav>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const headerText = 'Player 2 Pieces';
-            const initialGamePieces = [
-                'Piece 1',
-                'Piece 2',
-                'Piece 3',
-                'Piece 4',
-                'Piece 5'
-            ];
+    <div class="container">
+        <h1 contenteditable="true">Player 1</h1>
+        <p id="counter">100% remaining</p>
+        <div class="game-pieces">
+            <div class="game-piece" contenteditable="true">Piece 1</div>
+            <div class="game-piece" contenteditable="true">Piece 2</div>
+            <div class="game-piece" contenteditable="true">Piece 3</div>
+            <!-- Add more pieces as needed -->
+        </div>
+        <button id="add-piece">Add Piece</button>
+        <button id="remove-piece">Remove Piece</button>
+    </div>
+</body>
+</html>
 
-            document.querySelector('h1').textContent = headerText;
-
-            if (!localStorage.getItem(window.location.pathname)) {
-                const container = document.getElementById('game-pieces-co
