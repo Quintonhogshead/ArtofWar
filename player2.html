@@ -11,41 +11,13 @@
     <h1 id="header">Player 2 Pieces</h1>
     <div id="counter">Remaining units: 100%</div>
     <div id="game-pieces-container"></div>
+    <button onclick="addGamePiece('player2')">Add Piece</button>
+    <button onclick="removeGamePiece('player2')">Remove Last Piece</button>
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="player1.html">Player 1</a></li>
         </ul>
     </nav>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const headerText = 'Player 2 Pieces';
-            const initialGamePieces = [
-                'Piece 1',
-                'Piece 2',
-                'Piece 3',
-                'Piece 4',
-                'Piece 5'
-            ];
-
-            document.querySelector('h1').textContent = headerText;
-
-            if (!localStorage.getItem(window.location.pathname)) {
-                const container = document.getElementById('game-pieces-container');
-                initialGamePieces.forEach(piece => {
-                    const div = document.createElement('div');
-                    div.className = 'game-piece';
-                    div.textContent = piece;
-                    div.onclick = toggleRemoved;
-                    div.oncontextmenu = editText;
-                    container.appendChild(div);
-                });
-                updateCounter();
-                saveGameState();
-            } else {
-                loadGameState();
-            }
-        });
-    </script>
 </body>
 </html>
