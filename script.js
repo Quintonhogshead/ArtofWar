@@ -85,4 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
             div.className = 'game-piece';
             div.textContent = piece;
             div.onclick = toggleRemoved;
-            div
+            div.oncontextmenu = editText;
+            container.appendChild(div);
+        });
+        updateCounter();
+        saveGameState();
+    }
+});
