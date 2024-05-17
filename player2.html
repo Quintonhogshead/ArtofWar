@@ -8,7 +8,7 @@
     <script defer src="script.js"></script>
 </head>
 <body>
-    <h1>Player 2 Pieces</h1>
+    <h1 id="header">Player 2 Pieces</h1>
     <div id="counter">Remaining units: 100%</div>
     <div id="game-pieces-container"></div>
     <nav>
@@ -35,11 +35,22 @@
                 const div = document.createElement('div');
                 div.className = 'game-piece';
                 div.onclick = toggleRemoved;
+                div.oncontextmenu = editText;
                 div.textContent = piece;
                 container.appendChild(div);
             });
             updateCounter();
         });
+
+        function editText(event) {
+            event.preventDefault();
+            const currentText = event.target.textContent;
+            const newText = prompt("Edit text:", currentText);
+            if (newText !== null && newText.trim() !== "") {
+                event.target.textContent = newText;
+                updateCounter();
+            }
+        }
     </script>
 </body>
 </html>
