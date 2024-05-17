@@ -48,7 +48,7 @@ h1 {
 .removed {
     color: #7f7f7f;
     text-decoration: line-through;
-    text-decoration-color: #ff0000;
+    text-decoration-color: #ff0000; /* Blood red color */
     background-color: #1c1f26;
 }
 
@@ -87,8 +87,4 @@ button {
 
 button:hover {
     background-color: #1447b2;
-}
-.draggable {
-    user-select: none;
-    -webkit-user-drag: element;
 }
