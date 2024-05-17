@@ -11,6 +11,10 @@ body {
 h1 {
     color: #e7bc25;
     margin-bottom: 20px;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    display: inline-block;
 }
 
 #counter {
