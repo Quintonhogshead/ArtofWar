@@ -17,5 +17,18 @@
             <li><a href="player1.html">Player 1</a></li>
         </ul>
     </nav>
-</body>
-</html>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const headerText = 'Player 2 Pieces';
+            const initialGamePieces = [
+                'Piece 1',
+                'Piece 2',
+                'Piece 3',
+                'Piece 4',
+                'Piece 5'
+            ];
+
+            document.querySelector('h1').textContent = headerText;
+
+            if (!localStorage.getItem(window.location.pathname)) {
+                const container = document.getElementById('game-pieces-co
