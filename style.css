@@ -1,90 +1,76 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Special+Elite&display=swap');
 
 body {
     font-family: 'Orbitron', sans-serif;
-    background-color: #0b0c10;
-    color: #c5c6c7;
-    margin: 0;
-    padding: 0;
-}
-
-.nav, .container {
+    background-color: #1c1f26;
+    color: #e7bc25;
     text-align: center;
-    padding: 20px;
+    padding: 50px;
 }
 
-.nav h1 {
-    font-size: 2.5em;
+h1 {
+    color: #e7bc25;
     margin-bottom: 20px;
-    color: #66fcf1;
-}
-
-.nav a, .container a {
-    color: #66fcf1;
-    text-decoration: none;
-    margin: 0 10px;
-    font-size: 1.5em;
-    display: inline-block;
-    padding: 10px 20px;
-    border: 2px solid #66fcf1;
+    padding: 10px;
+    background-color: #333;
     border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
+    display: inline-block;
 }
 
-.nav a:hover, .container a:hover {
-    background-color: #66fcf1;
-    color: #0b0c10;
-}
-
-.container h1, .container p {
-    margin: 20px 0;
-    cursor: pointer;
-    color: #45a29e;
-}
-
-.game-pieces {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#counter {
+    color: #e7bc25;
+    margin-bottom: 30px;
+    font-size: 18px;
+    font-family: 'Special Elite', serif;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    display: inline-block;
 }
 
 .game-piece {
-    background-color: #1f2833;
-    color: #66fcf1;
-    border: 2px solid #45a29e;
-    padding: 10px;
-    margin: 5px;
-    width: 200px;
-    text-align: center;
+    margin: 5px 0;
+    padding: 15px;
+    font-size: 20px;
     cursor: pointer;
-    user-select: none;
-    transition: background-color 0.3s, color 0.3s, text-decoration 0.3s;
+    transition: color 0.3s, background-color 0.3s;
+    background-color: #1a5fe4;
     border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    color: #fff;
 }
 
-.game-piece.struck {
-    background-color: #4b4e54;
-    color: crimson;
+.game-piece:hover {
+    background-color: #1447b2;
+}
+
+.removed {
+    color: #7f7f7f;
     text-decoration: line-through;
+    text-decoration-color: #ff0000; /* Blood red color */
+    background-color: #1c1f26;
 }
 
-button {
-    background-color: #66fcf1;
-    color: #0b0c10;
-    border: none;
-    padding: 10px 20px;
-    margin: 10px;
-    cursor: pointer;
-    font-size: 1em;
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav a {
+    color: #e7bc25;
+    text-decoration: none;
+    padding: 10px;
+    background-color: #333;
     border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-button:hover {
-    background-color: #45a29e;
-    color: #0b0c10;
+nav a:hover {
+    text-decoration: underline;
 }
 
-button:focus {
-    outline: none;
-}
