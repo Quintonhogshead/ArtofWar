@@ -1,19 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Piece Tracker</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Battle Overlay</title>
+  <!-- Bebas Neue font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    /* Make the background transparent for overlay use */
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      color: #fff;
+      font-family: 'Bebas Neue', sans-serif;
+      overflow: hidden;
+    }
+    #unit-list {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .unit {
+      font-size: 48px;
+      margin: 10px 0;
+      position: relative;
+      display: inline-block;
+    }
+    /* When a unit is destroyed, add an animated strike-through */
+    .unit.destroyed::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      height: 3px;
+      background: red;
+      width: 0;
+      animation: strike 0.5s forwards;
+    }
+    @keyframes strike {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Game Piece Tracker</h1>
-    <nav>
-        <ul>
-            <li><a href="player1.html">Player 1</a></li>
-            <li><a href="player2.html">Player 2</a></li>
-        </ul>
-    </nav>
+  <div id="unit-list"></div>
+
+  <script>
+    // Load unit data from localStorage (or empty array if none exists)
+    function loadUnits() {
+      return JSON.parse(localStorage.getItem('units')) || [];
+    }
+    // Render the units on the overlay
+    function renderUnits() {
+      const unitList = document.getElementById('unit-list');
+      const units = loadUnits();
+      unitList.innerHTML = '';
+      units.forEach(unit => {
+        const unitDiv = document.createElement('div');
+        unitDiv.classList.add('unit');
+        if (unit.destroyed) {
+          unitDiv.classList.add('destroyed');
+        }
+        unitDiv.textContent = unit.name;
+        unitList.appendChild(unitDiv);
+      });
+    }
+    // Initial render and poll for updates every 500ms
+    renderUnits();
+    setInterval(renderUnits, 500);
+  </script>
 </body>
 </html>
-
